@@ -1,0 +1,6 @@
+@ReadyTech.API_HostAddress = http://localhost:5139
+
+GET {{ReadyTech.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
