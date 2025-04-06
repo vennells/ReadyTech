@@ -1,6 +1,6 @@
 @ReadyTech.API_HostAddress = http://localhost:5139
 
-GET {{ReadyTech.API_HostAddress}}/weatherforecast/
+GET {{ReadyTech.API_HostAddress}}/brew-coffee/
 Accept: application/json
 
 ###

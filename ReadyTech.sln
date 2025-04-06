@@ -7,7 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication1", "WebAppli
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReadyTech.API", "ReadyTech.API\ReadyTech.API.csproj", "{FECD22FD-33A2-4D4A-B8C3-8662CF59FF15}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReadyTech.Tests", "ReadyTech.Tests\ReadyTech.Tests.csproj", "{92D451F1-E7DB-4284-B2B7-DE17072A573D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReadyTech.API.IntegrationTests", "ReadyTech.Tests\ReadyTech.API.IntegrationTests.csproj", "{92D451F1-E7DB-4284-B2B7-DE17072A573D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{FECD22FD-33A2-4D4A-B8C3-8662CF59FF15} = {FECD22FD-33A2-4D4A-B8C3-8662CF59FF15}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
