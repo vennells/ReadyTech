@@ -7,12 +7,12 @@ public static class BrewCoffeeEndpoint
 {
     public static RouteHandlerBuilder MapBrewCoffeeEndpoint(this IEndpointRouteBuilder routes)
     {
-        return routes.MapGet("/brew-coffee", (BrewCoffeeService coffeeService, IWeatherService weatherService) =>
+        return routes.MapGet("/brew-coffee", async (BrewCoffeeService coffeeService, IWeatherService weatherService) =>
         {
-            var result = coffeeService.Brew();
-            var test = weatherService.GetCurrentTemp();
-            Console.WriteLine(test.Status.ToString());
-            Console.WriteLine(test.Result.ToString());
+            var result = await coffeeService.Brew();
+            //var test = weatherService.GetCurrentTemp();
+            //Console.WriteLine(test.Status.ToString());
+            //Console.WriteLine(test.Result.ToString());
             //if (test.IsCompletedSuccessfully)
             //{
             //    var weather = test.Result;

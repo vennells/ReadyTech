@@ -2,6 +2,7 @@
 using System.Net;
 using ReadyTech.API.DTOs;
 using System.Text.Json;
+using Moq;
 
 namespace ReadyTech.API.IntegrationTests
 {
@@ -9,6 +10,7 @@ namespace ReadyTech.API.IntegrationTests
     {
         private readonly CustomWebApplicationFactory _factory;
         private readonly HttpClient _client;
+
 
         public BrewCoffeeIntegrationtTests(CustomWebApplicationFactory factory)
         {
@@ -26,10 +28,11 @@ namespace ReadyTech.API.IntegrationTests
         }
 
         [Fact]
-        public async Task GetBrewCoffeeSuccessReturnsExpectedJsonObject()
+        public async Task GetBrewCoffee_Under30_ReturnsExpectedJsonObject()
         {
             var expectedMessage = "Your piping hot coffee is ready";
             var expectedPreparedDate = DateTime.Now;
+            _factory.WeatherService.Setup(ws => ws.GetCurrentTemp()).ReturnsAsync(20);
 
             var response = await _client.GetAsync("/brew-coffee");
             var content = await response.Content.ReadAsStringAsync();
@@ -41,6 +44,27 @@ namespace ReadyTech.API.IntegrationTests
             result.Should().NotBeNull();
             result.Message.Should().Be(expectedMessage);
             
+            var actualPreparedDate = DateTime.Parse(result.Prepared);
+            actualPreparedDate.Should().BeCloseTo(expectedPreparedDate, TimeSpan.FromSeconds(1));
+        }
+
+        [Fact]
+        public async Task GetBrewCoffee_Over30_30ReturnsExpectedJsonObject()
+        {
+            var expectedMessage = "Your refreshing iced coffee is ready";
+            var expectedPreparedDate = DateTime.Now;
+            _factory.WeatherService.Setup(ws => ws.GetCurrentTemp()).ReturnsAsync(40);
+
+            var response = await _client.GetAsync("/brew-coffee");
+            var content = await response.Content.ReadAsStringAsync();
+            var result = JsonSerializer.Deserialize<BrewCoffee>(content, new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            });
+
+            result.Should().NotBeNull();
+            result.Message.Should().Be(expectedMessage);
+
             var actualPreparedDate = DateTime.Parse(result.Prepared);
             actualPreparedDate.Should().BeCloseTo(expectedPreparedDate, TimeSpan.FromSeconds(1));
         }

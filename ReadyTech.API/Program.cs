@@ -21,7 +21,6 @@ builder.Services.AddHttpClient<IWeatherService, WeatherService>(client =>
 
 builder.Services.Configure<WeatherConfig>(builder.Configuration.GetSection("WeatherSettings"));
 
-
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
