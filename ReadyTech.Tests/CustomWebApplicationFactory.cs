@@ -14,10 +14,8 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
         builder.ConfigureServices(services =>
         {
             var descriptor = services.SingleOrDefault(d => d.ServiceType == typeof(IDateTimeProvider));
-
             if (descriptor != null)
                 services.Remove(descriptor);
-
 
             services.AddSingleton<IDateTimeProvider>(DateTimeProvider);
         });
